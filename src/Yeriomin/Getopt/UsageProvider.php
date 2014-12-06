@@ -10,8 +10,6 @@ namespace Yeriomin\Getopt;
 
 class UsageProvider implements UsageProviderInterface {
 
-    const PADDING = 25;
-
     /**
      * Script name to use in the help message
      * Defaults to $argv[0]
@@ -37,9 +35,6 @@ class UsageProvider implements UsageProviderInterface {
      * @return UsageProviderInterface
      */
     public function setScriptName($name) {
-        if (empty($name)) {
-            throw new GetoptException('Script name can not be empty');
-        }
         $this->scriptName = $name;
         return $this;
     }
@@ -62,30 +57,27 @@ class UsageProvider implements UsageProviderInterface {
      * @return string
      */
     public function getUsageMessage() {
-        $helpText = 'Usage: ' . $this->scriptName . ' [arguments]' . "\n";
+        if (empty($this->scriptName)) {
+            throw new GetoptException('Script name can not be empty');
+        }
+        $helpText = 'Usage: ' . $this->scriptName . ' [arguments]' . "\n\n";
         $helpText .= 'Arguments:' ."\n";
+        $args = array();
+        $charCount = 0;
         foreach ($this->optionDefinitions as $option) {
-            $mode = '';
-            switch ($option->mode()) {
-                case self::NO_ARGUMENT:
-                    $mode = '';
-                    break;
-                case OptionDefinition::REQUIRED:
-                    $mode = "<arg>";
-                    break;
-                case self::OPTIONAL_ARGUMENT:
-                    $mode = "[<arg>]";
-                    break;
-            }
-            $short = ($option->short()) ? '-'.$option->short() : '';
-            $long = ($option->long()) ? '--'.$option->long() : '';
-            if ($short && $long) {
-                $options = $short.', '.$long;
+            $short = $option->getShort();
+            $long = $option->getLong();
+            $arg = ' ';
+            if ($short !== null && $long !== null) {
+                $arg .= '-' . $short . ', --' . $long;
             } else {
-                $options = $short ? : $long;
+                $arg .= $short !== null ? '-' . $short : '--' . $long;
             }
-            $padded = str_pad(sprintf("  %s %s", $options, $mode), $padding);
-            $helpText .= sprintf("%s %s\n", $padded, $option->getDescription());
+            $charCount = $charCount < strlen($arg) ? strlen($arg) : $charCount;
+            $args[$arg] = $option->getDescription();
+        }
+        foreach ($args as $arg => $description) {
+            $helpText .= str_pad($arg, $charCount + 1) . $description . "\n";
         }
         return $helpText;
     }

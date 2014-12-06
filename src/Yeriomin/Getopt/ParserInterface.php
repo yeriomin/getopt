@@ -25,10 +25,17 @@ interface ParserInterface {
     public function getOptionsShort();
 
     /**
+     * Get arguments which are not options
+     *
+     * @return array
+     */
+    public function getArguments();
+
+    /**
      * Get console arguments list
      *
      * @param array $argv An array of raw console arguments
      */
-    public function parse($argv = array());
+    public function parse(array $argv);
 
 }

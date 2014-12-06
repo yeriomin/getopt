@@ -37,17 +37,54 @@ class OptionDefinition {
     protected $isRequired = false;
 
     /**
+     * Get short argument definition. One character
+     * 
+     * @return string
+     */
+    public function getShort() {
+        return $this->short;
+    }
+
+    /**
+     * Get long argument definition
+     * 
+     * @return string
+     */
+    public function getLong() {
+        return $this->long;
+    }
+
+    /**
+     * Get argument description
+     * 
+     * @return string
+     */
+    public function getDescription() {
+        return $this->description;
+    }
+
+    /**
+     * Return true if the argument is required
+     * 
+     * @return boolean
+     */
+    public function getIsRequired() {
+        return $this->isRequired;
+    }
+
+    /**
      * Set short argument definition
      *
-     * @param string $short A symbol to identify the option
+     * @param string $short A letter to identify the option
      *
      * @return OptionDefinition
      */
     public function setShort($short) {
-        if (!is_string($short)) {
-            throw new GetoptException('Short option name must be a string');
-        }
-        $this->short = substr($short, 0, 1);
+        $short = (string) $short;
+        $this->short = function_exists('mb_substr')
+            ? mb_substr($short, 0, 1)
+            : substr($short, 0, 1)
+        ;
         return $this;
     }
 
@@ -59,9 +96,7 @@ class OptionDefinition {
      * @return OptionDefinition
      */
     public function setLong($long) {
-        if (!is_string($long)) {
-            throw new GetoptException('Long option name must be a string');
-        }
+        $long = (string) $long;
         $this->long = $long;
         return $this;
     }
@@ -74,9 +109,7 @@ class OptionDefinition {
      * @return OptionDefinition
      */
     public function setDescription($description = '') {
-        if (!is_string($description)) {
-            throw new GetoptException('Option description must be a string');
-        }
+        $description = (string) $description;
         $this->description = $description;
         return $this;
     }
@@ -89,7 +122,7 @@ class OptionDefinition {
      *
      * @return OptionDefinition
      */
-    public function setIsRequired($isRequired = false) {
+    public function setIsRequired($isRequired = true) {
         $this->isRequired = (boolean) $isRequired;
         return $this;
     }
@@ -103,7 +136,7 @@ class OptionDefinition {
      * @param boolean $isRequired Should the option be required or not
      */
     public function __construct(
-        $short,
+        $short = null,
         $long = null,
         $description = '',
         $isRequired = false
@@ -113,7 +146,7 @@ class OptionDefinition {
         }
         $this->setLong($long);
         $this->setDescription($description);
-        $this->setRequired($isRequired);
+        $this->setIsRequired($isRequired);
     }
 
 }
