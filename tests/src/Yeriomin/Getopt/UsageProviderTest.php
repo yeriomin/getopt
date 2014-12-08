@@ -17,9 +17,9 @@ class UsageProviderTest extends \PHPUnit_Framework_TestCase
      * @var string
      */
     private $expectedMessage = <<<EOT
-Usage: name [arguments]
+Usage: name [OPTIONS] ARG1 ARG2
 
-Arguments:
+Options:
  -a, --long1 description1
  -b, --long2 description2
 
@@ -88,12 +88,13 @@ EOT;
     public function testGetUsageMessage()
     {
         $this->object->setScriptName('name');
+        $this->object->setArgumentsDescription('[OPTIONS] ARG1 ARG2');
         $option1 = new OptionDefinition('a', 'long1', 'description1');
         $this->object->addOptionDefinition($option1);
         $option2 = new OptionDefinition('b', 'long2', 'description2', true);
         $this->object->addOptionDefinition($option2);
         $message = $this->object->getUsageMessage();
-        $this->assertNotEmpty($message);        
+        $this->assertNotEmpty($message);
         $this->assertInternalType('string', $message);
         $this->assertEquals($this->expectedMessage, $message);
         $this->setUp();

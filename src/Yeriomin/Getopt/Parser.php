@@ -107,6 +107,9 @@ class Parser implements ParserInterface {
      * @param array $argv An array of raw console arguments
      */
     public function parse(array $argv) {
+        if (empty($argv)) {
+            return;
+        }
         $argNum = 0;
         while ($argNum < count($argv)) {
             $arg = $argv[$argNum];

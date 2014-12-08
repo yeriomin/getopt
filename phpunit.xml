@@ -13,7 +13,10 @@
 >
     <testsuites>
         <testsuite name="Getopt Test Suite">
-            <directory>./tests/src/Yeriomin/Getopt/</directory>
+            <file>./tests/src/Yeriomin/Getopt/OptionDefinitionTest.php</file>
+            <file>./tests/src/Yeriomin/Getopt/UsageProviderTest.php</file>
+            <file>./tests/src/Yeriomin/Getopt/ParserTest.php</file>
+            <file>./tests/src/Yeriomin/Getopt/GetoptTest.php</file>
         </testsuite>
     </testsuites>
     <filter>

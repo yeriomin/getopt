@@ -12,11 +12,18 @@ class UsageProvider implements UsageProviderInterface {
 
     /**
      * Script name to use in the help message
-     * Defaults to $argv[0]
      *
      * @var string
      */
     protected $scriptName = '';
+
+    /**
+     * Arguments description. For example:
+     * cp [OPTIONS] SOURCE DESTINATION
+     *
+     * @var string
+     */
+    protected $argumentsDescription = '[OPTIONS] [ARGUMENTS]';
 
     /**
      * An array of OptionDefinition objects
@@ -30,12 +37,22 @@ class UsageProvider implements UsageProviderInterface {
      *
      * @param string $name
      *
-     * @throws GetoptException
-     *
      * @return UsageProviderInterface
      */
     public function setScriptName($name) {
         $this->scriptName = $name;
+        return $this;
+    }
+
+    /**
+     * Set arguments description. For example:
+     * cp [OPTIONS] SOURCE DESTINATION
+     *
+     * @param string $argumentsDescription
+     * @return \Yeriomin\Getopt\UsageProvider
+     */
+    public function setArgumentsDescription($argumentsDescription) {
+        $this->argumentsDescription = $argumentsDescription;
         return $this;
     }
 
@@ -60,8 +77,9 @@ class UsageProvider implements UsageProviderInterface {
         if (empty($this->scriptName)) {
             throw new GetoptException('Script name can not be empty');
         }
-        $helpText = 'Usage: ' . $this->scriptName . ' [arguments]' . "\n\n";
-        $helpText .= 'Arguments:' ."\n";
+        $helpText = 'Usage: ' . $this->scriptName . ' '
+            . $this->argumentsDescription . "\n\n" . 'Options:' ."\n"
+        ;
         $args = array();
         $charCount = 0;
         foreach ($this->optionDefinitions as $option) {
