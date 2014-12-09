@@ -129,10 +129,8 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
         $this->assertEmpty($this->object->getOptionDefinitions());
         $optionDefinition = new OptionDefinition('a');
         $this->object->addOptionDefinition($optionDefinition);
-        $this->assertEquals(
-            'a',
-            $this->object->getOptionDefinitions()[0]->getShort()
-        );
+        $optionDefinitions = $this->object->getOptionDefinitions();
+        $this->assertEquals('a', $optionDefinitions[0]->getShort());
     }
 
     /**
@@ -164,10 +162,12 @@ Options:
         $args = array('-s', '--opt2', 'val2', 'arg1');
         $this->object->setRawArguments($args);
         $this->object->parse();
-        $this->assertEquals(true, $this->object->getOptionsShort()['s']);
-        $this->assertEquals(true, $this->object->getOptionsLong()['opt1']);
-        $this->assertEquals('val2', $this->object->getOptionsShort()['t']);
-        $this->assertEquals('val2', $this->object->getOptionsLong()['opt2']);
+        $optionsShort = $this->object->getOptionsShort();
+        $optionsLong = $this->object->getOptionsLong();
+        $this->assertEquals(true, $optionsShort['s']);
+        $this->assertEquals(true, $optionsLong['opt1']);
+        $this->assertEquals('val2', $optionsShort['t']);
+        $this->assertEquals('val2', $optionsLong['opt2']);
         $this->assertContains('arg1', $this->object->getArguments());
     }
 
