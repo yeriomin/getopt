@@ -120,6 +120,7 @@ class Parser implements ParserInterface {
                 // Getting option's value
                 if (!isset($argv[$argNum + 1])
                     || self::isOption($argv[$argNum + 1])
+                    || self::isArgumentSeparator($argv[$argNum + 1])
                     || self::isClustered($arg)
                 ) {
                     $value = true;
@@ -149,6 +150,11 @@ class Parser implements ParserInterface {
                 $this->arguments[] = $arg;
             }
             $argNum++;
+        }
+        if (!empty($this->arguments)
+            && $this->arguments[0] == $_SERVER['PHP_SELF']
+        ) {
+            array_shift($this->arguments);
         }
     }
 

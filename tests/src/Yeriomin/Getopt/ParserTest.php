@@ -104,21 +104,24 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      */
     public function testArguments() {
         $this->object->parse(array(
+            $_SERVER['PHP_SELF'],
             'arg1',
             '-s',
             'asd',
             '--ss',
             'qwe',
             'arg2',
+            '--tt',
             '--',
             '--arg3'
         ));
         $optionsShort = $this->object->getOptionsShort();
         $this->assertEquals(array('s' => 'asd'), $optionsShort);
         $optionsLong = $this->object->getOptionsLong();
-        $this->assertEquals(array('ss' => 'qwe'), $optionsLong);
+        $this->assertEquals(array('ss' => 'qwe', 'tt' => true), $optionsLong);
         $arguments = $this->object->getArguments();
         $this->assertEquals(array('arg1', 'arg2', '--arg3'), $arguments);
+        $this->assertNotContains($_SERVER['PHP_SELF'], $arguments);
     }
 
 }
