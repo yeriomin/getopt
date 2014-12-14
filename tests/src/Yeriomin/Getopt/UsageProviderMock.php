@@ -8,24 +8,26 @@ namespace Yeriomin\Getopt;
  *
  * @author yeriomin
  */
-class UsageProviderMock extends UsageProvider {
+class UsageProviderMock extends UsageProvider
+{
 
     /**
      * Get script name
-     * 
+     *
      * @return string
      */
-    public function getScriptName() {
+    public function getScriptName()
+    {
         return $this->scriptName;
     }
 
     /**
      * Get the OptionDefinition array
-     * 
+     *
      * @return array
      */
-    public function getOptionDefinitions() {
+    public function getOptionDefinitions()
+    {
         return $this->optionDefinitions;
     }
-
 }

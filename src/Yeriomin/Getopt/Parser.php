@@ -7,7 +7,8 @@
  */
 namespace Yeriomin\Getopt;
 
-class Parser implements ParserInterface {
+class Parser implements ParserInterface
+{
 
     /**
      * Stores long option values
@@ -38,7 +39,8 @@ class Parser implements ParserInterface {
      * @param string $string
      * @return boolean
      */
-    private static function isOption($string) {
+    private static function isOption($string)
+    {
         return !self::isArgumentSeparator($string) && $string[0] === '-';
     }
 
@@ -48,7 +50,8 @@ class Parser implements ParserInterface {
      * @param string $string
      * @return boolean
      */
-    private static function isLong($string) {
+    private static function isLong($string)
+    {
         return $string[1] == '-';
     }
 
@@ -58,7 +61,8 @@ class Parser implements ParserInterface {
      * @param string $string
      * @return boolean
      */
-    private static function isArgumentSeparator($string) {
+    private static function isArgumentSeparator($string)
+    {
         return $string === '--';
     }
 
@@ -68,7 +72,8 @@ class Parser implements ParserInterface {
      * @param string $string
      * @return boolean
      */
-    private static function isClustered($string) {
+    private static function isClustered($string)
+    {
         return $string[0] === '-' && $string[1] != '-' && strlen($string) > 2;
     }
 
@@ -78,7 +83,8 @@ class Parser implements ParserInterface {
      *
      * @return array
      */
-    public function getOptionsLong() {
+    public function getOptionsLong()
+    {
         return $this->optionsLong;
     }
 
@@ -88,16 +94,18 @@ class Parser implements ParserInterface {
      *
      * @return array
      */
-    public function getOptionsShort() {
+    public function getOptionsShort()
+    {
         return $this->optionsShort;
     }
 
     /**
      * Get arguments which are not options
-     * 
+     *
      * @return array
      */
-    public function getArguments() {
+    public function getArguments()
+    {
         return $this->arguments;
     }
 
@@ -106,7 +114,8 @@ class Parser implements ParserInterface {
      *
      * @param array $argv An array of raw console arguments
      */
-    public function parse(array $argv) {
+    public function parse(array $argv)
+    {
         if (empty($argv)) {
             return;
         }
@@ -137,7 +146,7 @@ class Parser implements ParserInterface {
                         $this->optionsShort[$name[$i]] = $value;
                     }
                 }
-            } else if (self::isArgumentSeparator($arg)) {
+            } elseif (self::isArgumentSeparator($arg)) {
                 // Its the argument separator - every following argument
                 // is an actual argument, not an option, regardless of dashes
                 $this->arguments = array_merge(
@@ -157,5 +166,4 @@ class Parser implements ParserInterface {
             array_shift($this->arguments);
         }
     }
-
 }

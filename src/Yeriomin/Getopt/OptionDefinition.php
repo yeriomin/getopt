@@ -6,7 +6,8 @@
  */
 namespace Yeriomin\Getopt;
 
-class OptionDefinition {
+class OptionDefinition
+{
 
     /**
      * Short argument definition. One character
@@ -38,37 +39,41 @@ class OptionDefinition {
 
     /**
      * Get short argument definition. One character
-     * 
+     *
      * @return string
      */
-    public function getShort() {
+    public function getShort()
+    {
         return $this->short;
     }
 
     /**
      * Get long argument definition
-     * 
+     *
      * @return string
      */
-    public function getLong() {
+    public function getLong()
+    {
         return $this->long;
     }
 
     /**
      * Get argument description
-     * 
+     *
      * @return string
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
     /**
      * Return true if the argument is required
-     * 
+     *
      * @return boolean
      */
-    public function getIsRequired() {
+    public function getIsRequired()
+    {
         return $this->isRequired;
     }
 
@@ -79,7 +84,8 @@ class OptionDefinition {
      *
      * @return OptionDefinition
      */
-    public function setShort($short) {
+    public function setShort($short)
+    {
         $short = (string) $short;
         $this->short = function_exists('mb_substr')
             ? mb_substr($short, 0, 1)
@@ -95,7 +101,8 @@ class OptionDefinition {
      *
      * @return OptionDefinition
      */
-    public function setLong($long) {
+    public function setLong($long)
+    {
         $long = (string) $long;
         $this->long = $long;
         return $this;
@@ -108,7 +115,8 @@ class OptionDefinition {
      *
      * @return OptionDefinition
      */
-    public function setDescription($description = '') {
+    public function setDescription($description = '')
+    {
         $description = (string) $description;
         $this->description = $description;
         return $this;
@@ -122,7 +130,8 @@ class OptionDefinition {
      *
      * @return OptionDefinition
      */
-    public function setIsRequired($isRequired = true) {
+    public function setIsRequired($isRequired = true)
+    {
         $this->isRequired = (boolean) $isRequired;
         return $this;
     }
@@ -148,5 +157,4 @@ class OptionDefinition {
         $this->setDescription($description);
         $this->setIsRequired($isRequired);
     }
-
 }

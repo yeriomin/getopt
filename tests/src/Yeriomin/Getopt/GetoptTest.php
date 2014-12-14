@@ -216,5 +216,4 @@ Options:
         $this->assertEquals(true, $this->object->s);
         $this->assertEquals('val1', $this->object->opt1);
     }
-
 }

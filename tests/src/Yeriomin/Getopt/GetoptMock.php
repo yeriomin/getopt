@@ -15,7 +15,8 @@ class GetoptMock extends Getopt
      *
      * @return UsageProviderInterface
      */
-    public function getUsageProvider() {
+    public function getUsageProvider()
+    {
         return $this->usageProvider;
     }
 
@@ -24,37 +25,43 @@ class GetoptMock extends Getopt
      *
      * @return ParserInterface
      */
-    public function getParser() {
+    public function getParser()
+    {
         return $this->parser;
     }
 
-    public function getOptionDefinitions() {
+    public function getOptionDefinitions()
+    {
         return $this->optionDefinitions;
     }
 
-    public function setRawArguments($rawArguments) {
+    public function setRawArguments($rawArguments)
+    {
         $this->rawArguments = $rawArguments;
         return $this;
     }
 
-    public function setOptionDefinitions($optionDefinitions) {
+    public function setOptionDefinitions($optionDefinitions)
+    {
         $this->optionDefinitions = $optionDefinitions;
         return $this;
     }
 
-    public function setOptionsLong($optionsLong) {
+    public function setOptionsLong($optionsLong)
+    {
         $this->optionsLong = $optionsLong;
         return $this;
     }
 
-    public function setOptionsShort($optionsShort) {
+    public function setOptionsShort($optionsShort)
+    {
         $this->optionsShort = $optionsShort;
         return $this;
     }
 
-    public function setArguments($arguments) {
+    public function setArguments($arguments)
+    {
         $this->arguments = $arguments;
         return $this;
     }
-
 }

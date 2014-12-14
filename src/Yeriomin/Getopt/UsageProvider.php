@@ -8,7 +8,8 @@
  */
 namespace Yeriomin\Getopt;
 
-class UsageProvider implements UsageProviderInterface {
+class UsageProvider implements UsageProviderInterface
+{
 
     /**
      * Script name to use in the help message
@@ -39,7 +40,8 @@ class UsageProvider implements UsageProviderInterface {
      *
      * @return UsageProviderInterface
      */
-    public function setScriptName($name) {
+    public function setScriptName($name)
+    {
         $this->scriptName = $name;
         return $this;
     }
@@ -51,7 +53,8 @@ class UsageProvider implements UsageProviderInterface {
      * @param string $argumentsDescription
      * @return \Yeriomin\Getopt\UsageProvider
      */
-    public function setArgumentsDescription($argumentsDescription) {
+    public function setArgumentsDescription($argumentsDescription)
+    {
         $this->argumentsDescription = $argumentsDescription;
         return $this;
     }
@@ -63,7 +66,8 @@ class UsageProvider implements UsageProviderInterface {
      *
      * @return UsageProviderInterface
      */
-    public function addOptionDefinition(OptionDefinition $option) {
+    public function addOptionDefinition(OptionDefinition $option)
+    {
         $this->optionDefinitions[] = $option;
         return $this;
     }
@@ -73,7 +77,8 @@ class UsageProvider implements UsageProviderInterface {
      *
      * @return string
      */
-    public function getUsageMessage() {
+    public function getUsageMessage()
+    {
         if (empty($this->scriptName)) {
             throw new GetoptException('Script name can not be empty');
         }
@@ -99,5 +104,4 @@ class UsageProvider implements UsageProviderInterface {
         }
         return $helpText;
     }
-
 }

@@ -17,7 +17,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() {
+    protected function setUp()
+    {
         $this->object = new Parser;
     }
 
@@ -25,7 +26,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() {
+    protected function tearDown()
+    {
 
     }
 
@@ -35,7 +37,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      * @covers Yeriomin\Getopt\Parser::getArguments
      * @covers Yeriomin\Getopt\Parser::parse
      */
-    public function testEmpty() {
+    public function testEmpty()
+    {
         $this->object->parse(array());
         $optionsShort = $this->object->getOptionsShort();
         $this->assertEmpty($optionsShort);
@@ -51,7 +54,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      * @covers Yeriomin\Getopt\Parser::getArguments
      * @covers Yeriomin\Getopt\Parser::parse
      */
-    public function testBooleans() {
+    public function testBooleans()
+    {
         $this->object->parse(array('-s', '--ss'));
         $optionsShort = $this->object->getOptionsShort();
         $this->assertEquals(array('s' => true), $optionsShort);
@@ -67,7 +71,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      * @covers Yeriomin\Getopt\Parser::getArguments
      * @covers Yeriomin\Getopt\Parser::parse
      */
-    public function testStrings() {
+    public function testStrings()
+    {
         $this->object->parse(array('-s', 'asd', '--ss', 'qwe'));
         $optionsShort = $this->object->getOptionsShort();
         $this->assertEquals(array('s' => 'asd'), $optionsShort);
@@ -83,7 +88,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      * @covers Yeriomin\Getopt\Parser::getArguments
      * @covers Yeriomin\Getopt\Parser::parse
      */
-    public function testClustering() {
+    public function testClustering()
+    {
         $this->object->parse(array('arg1', '-sdf', 'arg2'));
         $optionsShort = $this->object->getOptionsShort();
         $this->assertEquals(
@@ -102,7 +108,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      * @covers Yeriomin\Getopt\Parser::getArguments
      * @covers Yeriomin\Getopt\Parser::parse
      */
-    public function testArguments() {
+    public function testArguments()
+    {
         $this->object->parse(array(
             $_SERVER['PHP_SELF'],
             'arg1',
@@ -123,5 +130,4 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array('arg1', 'arg2', '--arg3'), $arguments);
         $this->assertNotContains($_SERVER['PHP_SELF'], $arguments);
     }
-
 }

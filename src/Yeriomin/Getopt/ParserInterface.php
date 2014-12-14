@@ -6,7 +6,8 @@
  */
 namespace Yeriomin\Getopt;
 
-interface ParserInterface {
+interface ParserInterface
+{
 
     /**
      * Get all long options
@@ -37,5 +38,4 @@ interface ParserInterface {
      * @param array $argv An array of raw console arguments
      */
     public function parse(array $argv);
-
 }

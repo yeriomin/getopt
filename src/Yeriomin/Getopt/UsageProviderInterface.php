@@ -6,7 +6,8 @@
  */
 namespace Yeriomin\Getopt;
 
-interface UsageProviderInterface {
+interface UsageProviderInterface
+{
 
     /**
      * Set script name
@@ -32,5 +33,4 @@ interface UsageProviderInterface {
      * @return string
      */
     public function getUsageMessage();
-
 }

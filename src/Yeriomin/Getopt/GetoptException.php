@@ -6,6 +6,7 @@
  */
 namespace Yeriomin\Getopt;
 
-class GetoptException extends \Exception {
+class GetoptException extends \Exception
+{
 
 }

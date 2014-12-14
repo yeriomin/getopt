@@ -7,7 +7,8 @@
  */
 namespace Yeriomin\Getopt;
 
-class Getopt {
+class Getopt
+{
 
     /**
      * Raw console arguments
@@ -72,7 +73,8 @@ class Getopt {
      *
      * @return array
      */
-    public function getOptionsLong() {
+    public function getOptionsLong()
+    {
         if (null === $this->optionsShort
             && null === $this->optionsLong
             && null === $this->arguments
@@ -87,7 +89,8 @@ class Getopt {
      *
      * @return array
      */
-    public function getOptionsShort() {
+    public function getOptionsShort()
+    {
         if (null === $this->optionsShort
             && null === $this->optionsLong
             && null === $this->arguments
@@ -102,7 +105,8 @@ class Getopt {
      *
      * @return array
      */
-    public function getArguments() {
+    public function getArguments()
+    {
         if (null === $this->optionsShort
             && null === $this->optionsLong
             && null === $this->arguments
@@ -118,7 +122,8 @@ class Getopt {
      * @param \Yeriomin\Getopt\UsageProviderInterface $usageProvider
      * @return \Yeriomin\Getopt\Getopt
      */
-    public function setUsageProvider(UsageProviderInterface $usageProvider) {
+    public function setUsageProvider(UsageProviderInterface $usageProvider)
+    {
         $this->usageProvider = $usageProvider;
         return $this;
     }
@@ -130,7 +135,8 @@ class Getopt {
      *
      * @return \Yeriomin\Getopt\Getopt
      */
-    public function setScriptName($name) {
+    public function setScriptName($name)
+    {
         $this->scriptName = $name;
         return $this;
     }
@@ -141,7 +147,8 @@ class Getopt {
      * @param \Yeriomin\Getopt\ParserInterface $parser
      * @return \Yeriomin\Getopt\Getopt
      */
-    public function setParser(ParserInterface $parser) {
+    public function setParser(ParserInterface $parser)
+    {
         $this->optionsShort = null;
         $this->optionsLong = null;
         $this->arguments = null;
@@ -155,7 +162,8 @@ class Getopt {
      * @param \Yeriomin\Getopt\OptionDefinition $optionDefinition
      * @return \Yeriomin\Getopt\Getopt
      */
-    public function addOptionDefinition(OptionDefinition $optionDefinition) {
+    public function addOptionDefinition(OptionDefinition $optionDefinition)
+    {
         $this->optionDefinitions[] = $optionDefinition;
         return $this;
     }
@@ -165,7 +173,8 @@ class Getopt {
      *
      * @return string
      */
-    public function getUsageMessage() {
+    public function getUsageMessage()
+    {
         foreach ($this->optionDefinitions as $def) {
             $this->usageProvider->addOptionDefinition($def);
         }
@@ -181,7 +190,8 @@ class Getopt {
      *
      * @return array
      */
-    public function getRawArguments() {
+    public function getRawArguments()
+    {
         return $this->rawArguments;
     }
 
@@ -191,7 +201,8 @@ class Getopt {
      *
      * @throws GetoptException
      */
-    public function parse() {
+    public function parse()
+    {
         $this->parser->parse($this->rawArguments);
         $this->arguments = $this->parser->getArguments();
         $optionsShort = $this->parser->getOptionsShort();
@@ -205,12 +216,13 @@ class Getopt {
                 && null !== $long && isset($optionsLong[$long])
                 && $optionsShort[$short] !== $optionsLong[$long]
             ) {
-                throw new GetoptException('Both -' . $short . ' and --' . $long
+                throw new GetoptException(
+                    'Both -' . $short . ' and --' . $long
                     . ' given, with non-matching values. Make up your mind.'
                 );
-            } else if (null !== $short && isset($optionsShort[$short])) {
+            } elseif (null !== $short && isset($optionsShort[$short])) {
                 $optionsLong[$long] = $optionsShort[$short];
-            } else if (null !== $long && isset($optionsLong[$long])) {
+            } elseif (null !== $long && isset($optionsLong[$long])) {
                 $optionsShort[$short] = $optionsLong[$long];
             }
             if ($definition->getIsRequired()
@@ -228,7 +240,8 @@ class Getopt {
             }
         }
         if (!empty($missongRequired)) {
-            throw new GetoptException('Missing required options: '
+            throw new GetoptException(
+                'Missing required options: '
                 . implode(', ', $missongRequired)
             );
         }
@@ -238,10 +251,11 @@ class Getopt {
 
     /**
      * Returns an option value
-     * 
+     *
      * @param string $option
      */
-    public function __get($option) {
+    public function __get($option)
+    {
         $type = strlen($option) === 1 ? 'optionsShort' : 'optionsLong';
         if (null === $this->$type) {
             $this->parse();
@@ -258,10 +272,11 @@ class Getopt {
      * @param \Traversable $rawArguments
      * @throws GetoptException
      */
-    public function __construct($rawArguments = null) {
+    public function __construct($rawArguments = null)
+    {
         if (null === $rawArguments) {
             $rawArguments = PHP_SAPI == 'cli' ? $_SERVER['argv'] : array();
-        } else if (!is_array($rawArguments)
+        } elseif (!is_array($rawArguments)
             && !($rawArguments instanceof \Traversable)
         ) {
             throw new GetoptException('An array of strings is expected');
@@ -270,5 +285,4 @@ class Getopt {
         $this->parser = new Parser();
         $this->usageProvider = new UsageProvider();
     }
-
 }
