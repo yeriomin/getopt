@@ -11,7 +11,7 @@ A small PHP getopt helper/library. Provides a customizable input parameter inter
 
 `$ composer require yeriomin/getopt`
 
-```
+```php
 <?php
 include 'vendor/autoload.php';
 $getopt = new \Yeriomin\Getopt\Getopt();
@@ -37,7 +37,7 @@ Lets see how `getopt` deals with the following input:
 
 #### Getting option value
 
-```
+```php
 echo $getopt->option1; // "value1"
 echo $getopt->optionWhichIsNotProvided; // null
 ```
@@ -90,7 +90,7 @@ If you just want to get console arguments, you just need the three methods cover
 
 #### addOptionDefinition()
 
-```
+```php
 $optionDefinition = new \Yeriomin\Getopt\OptionDefinition(
     'c',
     'config',
@@ -103,7 +103,7 @@ Doing this defines -c|--config option. Providing -c populates --config and vice 
 
 #### Required options
 
-```
+```php
 $optionDefinition = new \Yeriomin\Getopt\OptionDefinition(
     'c',
     'config',
@@ -119,7 +119,7 @@ Forth argument in the `OptionDefinition` constructor makes option required. You 
 
 This method lets you get a usage message based on the options you have defined. Is looks somewhat like a man page.
 
-```
+```php
 <?php
 include 'vendor/autoload.php';
 $getopt = new \Yeriomin\Getopt\Getopt();
