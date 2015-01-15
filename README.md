@@ -1,5 +1,4 @@
-# getopt
-======
+#getopt
 
 [![Latest Version](https://img.shields.io/packagist/v/yeriomin/getopt.svg)](https://packagist.org/packages/yeriomin/getopt)
 [![Build Status](https://travis-ci.org/yeriomin/getopt.svg?branch=master)](https://travis-ci.org/yeriomin/getopt)
