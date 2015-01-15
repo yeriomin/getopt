@@ -64,4 +64,10 @@ class GetoptMock extends Getopt
         $this->arguments = $arguments;
         return $this;
     }
+
+    public function setParsed($parsed)
+    {
+        $this->parsed = $parsed;
+        return $this;
+    }
 }

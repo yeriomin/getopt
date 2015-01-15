@@ -142,7 +142,8 @@ class Parser implements ParserInterface
                     $this->optionsLong[$name] = $value;
                 } else {
                     // Short options can be clustered
-                    for ($i = 0; $i < strlen($name); $i++) {
+                    $length = strlen($name);
+                    for ($i = 0; $i < $length; $i++) {
                         $this->optionsShort[$name[$i]] = $value;
                     }
                 }

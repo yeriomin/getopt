@@ -88,39 +88,39 @@ class OptionDefinitionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Yeriomin\Getopt\OptionDefinition::setIsRequired
+     * @covers Yeriomin\Getopt\OptionDefinition::setRequired
      */
-    public function testSetIsRequired()
+    public function testSetRequired()
     {
         $this->assertEquals(
             false,
-            $this->object->getIsRequired(),
+            $this->object->getRequired(),
             '$isRequired is expected to be false by default'
         );
-        $this->object->setIsRequired();
+        $this->object->setRequired();
         $this->assertEquals(
             true,
-            $this->object->getIsRequired()
+            $this->object->getRequired()
         );
-        $this->object->setIsRequired(false);
+        $this->object->setRequired(false);
         $this->assertEquals(
             false,
-            $this->object->getIsRequired()
+            $this->object->getRequired()
         );
-        $this->object->setIsRequired(true);
+        $this->object->setRequired(true);
         $this->assertEquals(
             true,
-            $this->object->getIsRequired()
+            $this->object->getRequired()
         );
-        $this->object->setIsRequired(false);
+        $this->object->setRequired(false);
         $this->assertEquals(
             false,
-            $this->object->getIsRequired()
+            $this->object->getRequired()
         );
-        $this->object->setIsRequired('asd');
+        $this->object->setRequired('asd');
         $this->assertEquals(
             true,
-            $this->object->getIsRequired()
+            $this->object->getRequired()
         );
     }
 }

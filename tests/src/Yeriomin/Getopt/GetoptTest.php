@@ -40,9 +40,7 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
         $this->object->setOptionsLong(array('option2' => 'value2'));
         $optionsLong = $this->object->getOptionsLong();
         $this->assertEquals('value2', $optionsLong['option2']);
-        $this->object->setOptionsShort(null);
-        $this->object->setOptionsLong(null);
-        $this->object->setArguments(null);
+        $this->object->setParsed(false);
         $this->object->setRawArguments(array('--option3', 'value3'));
         $optionsLong = $this->object->getOptionsLong();
         $this->assertEquals('value3', $optionsLong['option3']);
@@ -59,9 +57,7 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
         $this->object->setOptionsShort(array('b' => 'value2'));
         $optionsShort = $this->object->getOptionsShort();
         $this->assertEquals('value2', $optionsShort['b']);
-        $this->object->setOptionsShort(null);
-        $this->object->setOptionsLong(null);
-        $this->object->setArguments(null);
+        $this->object->setParsed(false);
         $this->object->setRawArguments(array('-c', 'value3'));
         $optionsShort = $this->object->getOptionsShort();
         $this->assertEquals('value3', $optionsShort['c']);
@@ -78,9 +74,7 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
         $this->object->setArguments(array('value2'));
         $arguments = $this->object->getArguments();
         $this->assertContains('value2', $arguments);
-        $this->object->setOptionsShort(null);
-        $this->object->setOptionsLong(null);
-        $this->object->setArguments(null);
+        $this->object->setParsed(false);
         $this->object->setRawArguments(array('value3'));
         $arguments = $this->object->getArguments();
         $this->assertContains('value3', $arguments);

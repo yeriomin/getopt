@@ -35,7 +35,7 @@ class OptionDefinition
      *
      * @var boolean
      */
-    protected $isRequired = false;
+    protected $required = false;
 
     /**
      * Get short argument definition. One character
@@ -72,9 +72,9 @@ class OptionDefinition
      *
      * @return boolean
      */
-    public function getIsRequired()
+    public function getRequired()
     {
-        return $this->isRequired;
+        return $this->required;
     }
 
     /**
@@ -126,13 +126,13 @@ class OptionDefinition
      * Set required flag for the option.
      * If a required option is not provided, an exception is thrown
      *
-     * @param boolean $isRequired Should the option be required or not
+     * @param boolean $required Should the option be required or not
      *
      * @return OptionDefinition
      */
-    public function setIsRequired($isRequired = true)
+    public function setRequired($required = true)
     {
-        $this->isRequired = (boolean) $isRequired;
+        $this->required = (boolean) $required;
         return $this;
     }
 
@@ -142,19 +142,19 @@ class OptionDefinition
      * @param string $short Short option name. One symbol expected
      * @param string $long Long option name. A string expected
      * @param string $description Option description for the usage message
-     * @param boolean $isRequired Should the option be required or not
+     * @param boolean $required Should the option be required or not
      */
     public function __construct(
         $short = null,
         $long = null,
         $description = '',
-        $isRequired = false
+        $required = false
     ) {
         if (!empty($short)) {
             $this->setShort($short);
         }
         $this->setLong($long);
         $this->setDescription($description);
-        $this->setIsRequired($isRequired);
+        $this->setRequired($required);
     }
 }

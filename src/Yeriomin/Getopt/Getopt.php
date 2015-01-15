@@ -69,16 +69,20 @@ class Getopt
     protected $arguments;
 
     /**
+     * Has parsing been done or not
+     *
+     * @var boolean
+     */
+    protected $parsed = false;
+
+    /**
      * Get all long options
      *
      * @return array
      */
     public function getOptionsLong()
     {
-        if (null === $this->optionsShort
-            && null === $this->optionsLong
-            && null === $this->arguments
-        ) {
+        if (!$this->parsed) {
             $this->parse();
         }
         return $this->optionsLong;
@@ -91,10 +95,7 @@ class Getopt
      */
     public function getOptionsShort()
     {
-        if (null === $this->optionsShort
-            && null === $this->optionsLong
-            && null === $this->arguments
-        ) {
+        if (!$this->parsed) {
             $this->parse();
         }
         return $this->optionsShort;
@@ -107,10 +108,7 @@ class Getopt
      */
     public function getArguments()
     {
-        if (null === $this->optionsShort
-            && null === $this->optionsLong
-            && null === $this->arguments
-        ) {
+        if (!$this->parsed) {
             $this->parse();
         }
         return $this->arguments;
@@ -149,9 +147,7 @@ class Getopt
      */
     public function setParser(ParserInterface $parser)
     {
-        $this->optionsShort = null;
-        $this->optionsLong = null;
-        $this->arguments = null;
+        $this->parsed = false;
         $this->parser = $parser;
         return $this;
     }
@@ -204,6 +200,7 @@ class Getopt
     public function parse()
     {
         $this->parser->parse($this->rawArguments);
+        $this->parsed = true;
         $this->arguments = $this->parser->getArguments();
         $optionsShort = $this->parser->getOptionsShort();
         $optionsLong = $this->parser->getOptionsLong();
@@ -225,7 +222,7 @@ class Getopt
             } elseif (null !== $long && isset($optionsLong[$long])) {
                 $optionsShort[$short] = $optionsLong[$long];
             }
-            if ($definition->getIsRequired()
+            if ($definition->getRequired()
                 && !isset($optionsShort[$short])
                 && !isset($optionsLong[$long])
             ) {
