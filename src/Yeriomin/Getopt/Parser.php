@@ -89,6 +89,20 @@ class Parser implements ParserInterface
     }
 
     /**
+     * Get a long option value
+     *
+     * @param string $name
+     * @return array
+     */
+    public function getOptionLong($name)
+    {
+        return isset($this->optionsLong[$name])
+            ? $this->optionsLong[$name]
+            : null
+        ;
+    }
+
+    /**
      * Get all short options
      * Unless parse() is called beforehand, returns an empty array
      *
@@ -97,6 +111,20 @@ class Parser implements ParserInterface
     public function getOptionsShort()
     {
         return $this->optionsShort;
+    }
+
+    /**
+     * Get a short option value
+     *
+     * @param string $name
+     * @return array
+     */
+    public function getOptionShort($name)
+    {
+        return isset($this->optionsShort[$name])
+            ? $this->optionsShort[$name]
+            : null
+        ;
     }
 
     /**

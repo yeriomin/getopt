@@ -235,10 +235,10 @@ class Getopt
      */
     public function __get($option)
     {
-        $type = strlen($option) === 1 ? 'optionsShort' : 'optionsLong';
-        if (null === $this->$type) {
+        if (!$this->parsed) {
             $this->parse();
         }
+        $type = strlen($option) === 1 ? 'optionsShort' : 'optionsLong';
         $container = $this->$type;
         return isset($container[$option]) ? $container[$option] : null;
     }
@@ -276,16 +276,8 @@ class Getopt
     {
         $nameShort = $definition->getShort();
         $nameLong = $definition->getLong();
-        $optionsShort = $this->parser->getOptionsShort();
-        $optionsLong = $this->parser->getOptionsLong();
-        $valueShort = isset($optionsShort[$nameShort])
-            ? $optionsShort[$nameShort]
-            : null
-        ;
-        $valueLong = isset($optionsLong[$nameLong])
-            ? $optionsLong[$nameLong]
-            : null
-        ;
+        $valueShort = $this->parser->getOptionShort($nameShort);
+        $valueLong = $this->parser->getOptionLong($nameLong);
         if ($nameShort !== null && $nameLong !== null
             && $valueShort !== null && $valueLong !== null
             && $valueShort !== $valueLong

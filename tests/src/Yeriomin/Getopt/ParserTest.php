@@ -72,6 +72,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Yeriomin\Getopt\Parser::getOptionsLong
      * @covers Yeriomin\Getopt\Parser::getOptionsShort
+     * @covers Yeriomin\Getopt\Parser::getOptionLong
+     * @covers Yeriomin\Getopt\Parser::getOptionShort
      * @covers Yeriomin\Getopt\Parser::getArguments
      * @covers Yeriomin\Getopt\Parser::parse
      * @covers Yeriomin\Getopt\Parser::parseArg
@@ -82,8 +84,16 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->object->parse(array('-s', 'asd', '--ss', 'qwe'));
         $optionsShort = $this->object->getOptionsShort();
         $this->assertEquals(array('s' => 'asd'), $optionsShort);
+        $optionShort1 = $this->object->getOptionShort('s');
+        $this->assertEquals('asd', $optionShort1);
+        $optionShort2 = $this->object->getOptionShort('z');
+        $this->assertEquals(null, $optionShort2);
         $optionsLong = $this->object->getOptionsLong();
         $this->assertEquals(array('ss' => 'qwe'), $optionsLong);
+        $optionLong1 = $this->object->getOptionLong('ss');
+        $this->assertEquals('qwe', $optionLong1);
+        $optionLong2 = $this->object->getOptionLong('zz');
+        $this->assertEquals(null, $optionLong2);
         $arguments = $this->object->getArguments();
         $this->assertEmpty($arguments);
     }
