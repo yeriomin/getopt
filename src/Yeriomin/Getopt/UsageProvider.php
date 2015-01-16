@@ -88,14 +88,7 @@ class UsageProvider implements UsageProviderInterface
         $args = array();
         $charCount = 0;
         foreach ($this->optionDefinitions as $option) {
-            $short = $option->getShort();
-            $long = $option->getLong();
-            $arg = ' ';
-            if ($short !== null && $long !== null) {
-                $arg .= '-' . $short . ', --' . $long;
-            } else {
-                $arg .= $short !== null ? '-' . $short : '--' . $long;
-            }
+            $arg = $this->getOptionString($option);
             $charCount = $charCount < strlen($arg) ? strlen($arg) : $charCount;
             $args[$arg] = $option->getDescription();
         }
@@ -103,5 +96,24 @@ class UsageProvider implements UsageProviderInterface
             $helpText .= str_pad($arg, $charCount + 1) . $description . "\n";
         }
         return $helpText;
+    }
+
+    /**
+     * Get a human-readable string definition of an option
+     *
+     * @param \Yeriomin\Getopt\OptionDefinition $option
+     * @return string
+     */
+    private function getOptionString(OptionDefinition $option)
+    {
+        $short = $option->getShort();
+        $long = $option->getLong();
+        $result = ' ';
+        if ($short !== null && $long !== null) {
+            $result .= '-' . $short . ', --' . $long;
+        } else {
+            $result .= $short !== null ? '-' . $short : '--' . $long;
+        }
+        return $result;
     }
 }

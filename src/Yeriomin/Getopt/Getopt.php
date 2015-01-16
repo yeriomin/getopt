@@ -206,34 +206,16 @@ class Getopt
         $optionsLong = $this->parser->getOptionsLong();
         $missongRequired = array();
         foreach ($this->optionDefinitions as $definition) {
-            /* @var $definition \Yeriomin\Getopt\OptionDefinition */
+            $value = $this->getOptionValue($definition);
             $short = $definition->getShort();
             $long = $definition->getLong();
-            if (null !== $short && isset($optionsShort[$short])
-                && null !== $long && isset($optionsLong[$long])
-                && $optionsShort[$short] !== $optionsLong[$long]
-            ) {
-                throw new GetoptException(
-                    'Both -' . $short . ' and --' . $long
-                    . ' given, with non-matching values. Make up your mind.'
-                );
-            } elseif (null !== $short && isset($optionsShort[$short])) {
-                $optionsLong[$long] = $optionsShort[$short];
-            } elseif (null !== $long && isset($optionsLong[$long])) {
-                $optionsShort[$short] = $optionsLong[$long];
-            }
-            if ($definition->getRequired()
-                && !isset($optionsShort[$short])
-                && !isset($optionsLong[$long])
-            ) {
+            $optionsShort[$short] = $value;
+            $optionsLong[$long] = $value;
+            if ($definition->getRequired() && $value === null) {
                 $parts = array();
-                if (null !== $short) {
-                    $parts[] = '-' . $short;
-                }
-                if (null !== $long) {
-                    $parts[] = '--' . $long;
-                }
-                $missongRequired[] = implode('/', $parts);
+                $parts[] = $short !== null ? '-' . $short : null;
+                $parts[] = $long !== null ? '--' . $long : null;
+                $missongRequired[] = implode('|', $parts);
             }
         }
         if (!empty($missongRequired)) {
@@ -281,5 +263,38 @@ class Getopt
         $this->rawArguments = $rawArguments;
         $this->parser = new Parser();
         $this->usageProvider = new UsageProvider();
+    }
+
+    /**
+     * Get option value based on its definition
+     *
+     * @param \Yeriomin\Getopt\OptionDefinition $definition
+     * @return mixed
+     * @throws GetoptException
+     */
+    private function getOptionValue(OptionDefinition $definition)
+    {
+        $nameShort = $definition->getShort();
+        $nameLong = $definition->getLong();
+        $optionsShort = $this->parser->getOptionsShort();
+        $optionsLong = $this->parser->getOptionsLong();
+        $valueShort = isset($optionsShort[$nameShort])
+            ? $optionsShort[$nameShort]
+            : null
+        ;
+        $valueLong = isset($optionsLong[$nameLong])
+            ? $optionsLong[$nameLong]
+            : null
+        ;
+        if ($nameShort !== null && $nameLong !== null
+            && $valueShort !== null && $valueLong !== null
+            && $valueShort !== $valueLong
+        ) {
+            throw new GetoptException(
+                'Both -' . $nameShort . ' and --' . $nameLong
+                . ' given, with non-matching values. Make up your mind.'
+            );
+        }
+        return $valueShort !== null ? $valueShort : $valueLong;
     }
 }

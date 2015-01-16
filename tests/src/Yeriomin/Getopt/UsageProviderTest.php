@@ -84,6 +84,7 @@ EOT;
 
     /**
      * @covers Yeriomin\Getopt\UsageProvider::getUsageMessage
+     * @covers Yeriomin\Getopt\UsageProvider::getOptionString
      */
     public function testGetUsageMessage()
     {

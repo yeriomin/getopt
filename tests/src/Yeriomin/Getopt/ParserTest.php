@@ -36,6 +36,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      * @covers Yeriomin\Getopt\Parser::getOptionsShort
      * @covers Yeriomin\Getopt\Parser::getArguments
      * @covers Yeriomin\Getopt\Parser::parse
+     * @covers Yeriomin\Getopt\Parser::parseArg
+     * @covers Yeriomin\Getopt\Parser::parseOption
      */
     public function testEmpty()
     {
@@ -53,6 +55,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      * @covers Yeriomin\Getopt\Parser::getOptionsShort
      * @covers Yeriomin\Getopt\Parser::getArguments
      * @covers Yeriomin\Getopt\Parser::parse
+     * @covers Yeriomin\Getopt\Parser::parseArg
+     * @covers Yeriomin\Getopt\Parser::parseOption
      */
     public function testBooleans()
     {
@@ -70,6 +74,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      * @covers Yeriomin\Getopt\Parser::getOptionsShort
      * @covers Yeriomin\Getopt\Parser::getArguments
      * @covers Yeriomin\Getopt\Parser::parse
+     * @covers Yeriomin\Getopt\Parser::parseArg
+     * @covers Yeriomin\Getopt\Parser::parseOption
      */
     public function testStrings()
     {
@@ -87,6 +93,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      * @covers Yeriomin\Getopt\Parser::getOptionsShort
      * @covers Yeriomin\Getopt\Parser::getArguments
      * @covers Yeriomin\Getopt\Parser::parse
+     * @covers Yeriomin\Getopt\Parser::parseArg
+     * @covers Yeriomin\Getopt\Parser::parseOption
      */
     public function testClustering()
     {
@@ -107,6 +115,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      * @covers Yeriomin\Getopt\Parser::getOptionsShort
      * @covers Yeriomin\Getopt\Parser::getArguments
      * @covers Yeriomin\Getopt\Parser::parse
+     * @covers Yeriomin\Getopt\Parser::parseArg
+     * @covers Yeriomin\Getopt\Parser::parseOption
      */
     public function testArguments()
     {

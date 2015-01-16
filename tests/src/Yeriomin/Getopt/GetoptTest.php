@@ -193,7 +193,23 @@ Options:
         $this->object->addOptionDefinition($optionDefinition);
         $this->setExpectedException(
             'Yeriomin\Getopt\GetoptException',
-            'Missing required options: -s/--opt1'
+            'Missing required options: -s|--opt1'
+        );
+        $this->object->parse();
+    }
+
+    /**
+     * @covers Yeriomin\Getopt\Getopt::parse
+     */
+    public function testParseMissingRequiredShort()
+    {
+        $args = array();
+        $this->object->setRawArguments($args);
+        $optionDefinition = new OptionDefinition('s', null, 'descr', true);
+        $this->object->addOptionDefinition($optionDefinition);
+        $this->setExpectedException(
+            'Yeriomin\Getopt\GetoptException',
+            'Missing required options: -s'
         );
         $this->object->parse();
     }
