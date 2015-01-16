@@ -1,5 +1,4 @@
-# getopt
-======
+#getopt
 
 [![Latest Version](https://img.shields.io/packagist/v/yeriomin/getopt.svg)](https://packagist.org/packages/yeriomin/getopt)
 [![Build Status](https://travis-ci.org/yeriomin/getopt.svg?branch=master)](https://travis-ci.org/yeriomin/getopt)
@@ -12,11 +11,11 @@ A small PHP getopt helper/library. Provides a customizable input parameter inter
 
 `$ composer require yeriomin/getopt`
 
-```
-    <?php
-    include 'vendor/autoload.php';
-    $getopt = new \Yeriomin\Getopt\Getopt();
-    $arguments = $getopt->getArguments();
+```php
+<?php
+include 'vendor/autoload.php';
+$getopt = new \Yeriomin\Getopt\Getopt();
+$arguments = $getopt->getArguments();
 ```
 
 ## Features
@@ -38,7 +37,7 @@ Lets see how `getopt` deals with the following input:
 
 #### Getting option value
 
-```
+```php
 echo $getopt->option1; // "value1"
 echo $getopt->optionWhichIsNotProvided; // null
 ```
@@ -91,27 +90,27 @@ If you just want to get console arguments, you just need the three methods cover
 
 #### addOptionDefinition()
 
-```
-    $optionDefinition = new \Yeriomin\Getopt\OptionDefinition(
-        'c',
-        'config',
-        'Path to a configuration file'
-    );
-    $getopt->addOptionDefinition($optionDefinition);
+```php
+$optionDefinition = new \Yeriomin\Getopt\OptionDefinition(
+    'c',
+    'config',
+    'Path to a configuration file'
+);
+$getopt->addOptionDefinition($optionDefinition);
 ```
 
 Doing this defines -c|--config option. Providing -c populates --config and vice versa.
 
 #### Required options
 
-```
-    $optionDefinition = new \Yeriomin\Getopt\OptionDefinition(
-        'c',
-        'config',
-        'Path to a configuration file',
-        true
-    );
-    $getopt->addOptionDefinition($optionDefinition);
+```php
+$optionDefinition = new \Yeriomin\Getopt\OptionDefinition(
+    'c',
+    'config',
+    'Path to a configuration file',
+    true
+);
+$getopt->addOptionDefinition($optionDefinition);
 ```
 
 Forth argument in the `OptionDefinition` constructor makes option required. You can do the same with `$optionDefinition->setRequired()`. If any required option is not provided, getopt will throw an exception when `getArguments`, `getOptionsShort` or `getOptionsLong` are called.
@@ -120,30 +119,30 @@ Forth argument in the `OptionDefinition` constructor makes option required. You 
 
 This method lets you get a usage message based on the options you have defined. Is looks somewhat like a man page.
 
-```
-    <?php
-    include 'vendor/autoload.php';
-    $getopt = new \Yeriomin\Getopt\Getopt();
-    $optionConfig = new \Yeriomin\Getopt\OptionDefinition(
-        'c',
-        'config',
-        'Path to a configuration file',
-        true
-    );
-    $getopt->addOptionDefinition($optionConfig);
-    $optionHelp = new \Yeriomin\Getopt\OptionDefinition(
-        'h',
-        'help',
-        'Show script help message',
-    );
-    $getopt->addOptionDefinition($optionHelp);
-    try {
-        $configPath = $getopt->c;
-    } catch (\Yeriomin\Getopt\GetoptException $e) {
-        echo $e->getMessage() . "\n";
-        echo $getopt->getUsageMessage();
-        exit(1);
-    }
+```php
+<?php
+include 'vendor/autoload.php';
+$getopt = new \Yeriomin\Getopt\Getopt();
+$optionConfig = new \Yeriomin\Getopt\OptionDefinition(
+    'c',
+    'config',
+    'Path to a configuration file',
+    true
+);
+$getopt->addOptionDefinition($optionConfig);
+$optionHelp = new \Yeriomin\Getopt\OptionDefinition(
+    'h',
+    'help',
+    'Show script help message',
+);
+$getopt->addOptionDefinition($optionHelp);
+try {
+    $configPath = $getopt->c;
+} catch (\Yeriomin\Getopt\GetoptException $e) {
+    echo $e->getMessage() . "\n";
+    echo $getopt->getUsageMessage();
+    exit(1);
+}
 ```
 
 Trying to run this script with no arguments would give us the following message:
