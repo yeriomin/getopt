@@ -200,20 +200,29 @@ class Parser implements ParserInterface
     protected function parseOption(array $argv, $argNum)
     {
         $arg = $argv[$argNum];
+
+        $val = true;
+        if (strpos($arg, '=') !== false) {
+            list($arg, $val) = explode('=', $arg);
+        }
+
         $argsParsed = 1;
         $isLong = self::isLong($arg);
         $name = substr($arg, $isLong ? 2 : 1);
+
         // Getting option's value
         if (!isset($argv[$argNum + 1])
             || self::isOption($argv[$argNum + 1])
             || self::isArgumentSeparator($argv[$argNum + 1])
             || self::isClustered($arg)
         ) {
-            $value = true;
+            $value = $val;
         } else {
             $value = $argv[$argNum + 1];
             $argsParsed++;
         }
+
+
         // Storing the option and its value
         if ($isLong) {
             $this->optionsLong[$name] = $value;
